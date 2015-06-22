@@ -29,6 +29,11 @@ def rss_watch(rss):
 
 print(make_channel_list('channels.xml'))
 print(list_all_lines('cities.txt')[1])
-print(get_rss(make_channel_list('channels.xml')[3]))
+
+channels = get_rss(make_channel_list('channels.xml')[3])
+print(channels['feed']['subtitle'])
+print(channels)
+print()
+
 print(make_cities_counter_list(5))
 print(rss_watch(get_rss(make_channel_list('channels.xml'))))
