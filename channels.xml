@@ -25,5 +25,45 @@
                 http://ukrajinski-doslidniki-kosmosu5.webnode.com.ua/rss/all.xml
             </url>
         </item>
+        <item>
+            <url>
+                http://news.finance.ua/ua/rss
+            </url>
+        </item>
+        <item>
+            <url>
+                http://galtv.if.ua/news/rss.xml
+            </url>
+        </item>
+        <item>
+            <url>
+                http://www.aratta-ukraine.com/exportua.xml
+            </url>
+        </item>
+        <item>
+            <url>
+                http://tsn.ua/rss
+            </url>
+        </item>
+        <item>
+            <url>
+                http://osvita.ua/rss/news/
+            </url>
+        </item>
+        <item>
+            <url>
+                http://www.bbc.com/ukrainian/index.xml
+            </url>
+        </item>
+        <item>
+            <url>
+                http://www.unn.com.ua/rss/news_uk.xml
+            </url>
+        </item>
+        <item>
+            <url>
+                http://nbnews.com.ua/ua/rss/lenta/
+            </url>
+        </item>
     </channels>
 </data>

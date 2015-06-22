@@ -2,6 +2,7 @@ __author__ = 'solomon'
 
 import feedparser
 import xml.etree.cElementTree as eT
+import time
 
 
 def list_all_lines(file_name):
@@ -29,8 +30,8 @@ def make_cities_counter_list(_len):
     return [0 * i for i in range(0, _len)]
 
 
-def get_title(rss):
-    return [item.title for item in rss.entries]
+def get_item(rss):
+    return [item for item in rss.entries]
 
 
 def get_fulltext(rss):
@@ -52,8 +53,9 @@ def count_all_cities(news_line, vocabulary_set, counter_line):
 def run_all_rss(all_rss, vocabulary_set):
     counter_line = make_cities_counter_list(len(vocabulary_set[0]))
     for channel in all_rss:
-        for text in get_title(get_rss(channel)):
-            counter_line = count_all_cities(text.encode("utf-8"), vocabulary_set, counter_line)
+        for item in get_item(get_rss(channel)):
+            if item.published_parsed[0]*365.25 + item.published_parsed[1]*30.5 + item.published_parsed[2] > days_gone-1:
+                counter_line = count_all_cities(item.title.encode("utf-8"), vocabulary_set, counter_line)
     return counter_line
 
 
@@ -64,13 +66,14 @@ def sort_list(mention_list, vocabulary):
     return sorted(statistics, key=lambda city_mentioned: city_mentioned[0], )
 
 
-def print_top_5(sorted_list):
-    for city in xrange(len(sorted_list)-1, len(sorted_mention_list)-6, -1):
+def print_top_10(sorted_list):
+    for city in xrange(len(sorted_list) - 1, len(sorted_mention_list) - 11, -1):
         print("\n".join(["%s : %d" % (sorted_list[city][1].translate(None, '\n'), sorted_list[city][0])]))
 
 
 vocabularies = make_cities_vocabulary()
-
+now = time.strftime("%D").split("/")
+days_gone = float(time.strftime("%Y"))*365.25 + float(time.strftime("%m"))*30.5 + float(time.strftime("%d"))
 
 # print(make_channel_list('channels.xml'))
 # print(list_all_lines('cities.txt')[1])
@@ -100,4 +103,4 @@ mentions = run_all_rss(make_channel_list('channels.xml'), vocabularies)
 
 sorted_mention_list = sort_list(mentions, vocabularies[0])
 
-print_top_5(sorted_mention_list)
+print_top_10(sorted_mention_list)
