@@ -1,0 +1,29 @@
+<data>
+    <channels>
+        <item>
+            <url>
+                http://www.pravda.com.ua/rss/view_news/
+            </url>
+        </item>
+        <item>
+            <url>
+                http://tyzhden.ua/RSS/News/
+            </url>
+        </item>
+        <item>
+            <url>
+                http://www.radiosvoboda.org/api/zrqiteuuir
+            </url>
+        </item>
+        <item>
+            <url>
+                http://k.img.com.ua/rss/ua/news.xml
+            </url>
+        </item>
+        <item>
+            <url>
+                http://ukrajinski-doslidniki-kosmosu5.webnode.com.ua/rss/all.xml
+            </url>
+        </item>
+    </channels>
+</data>

@@ -1,4 +1,5 @@
 __author__ = 'solomon'
+# -*- coding: cp1251 -*-
 
 import feedparser
 import xml.etree.cElementTree as eT
@@ -31,4 +32,4 @@ print(make_channel_list('channels.xml'))
 print(list_all_lines('cities.txt')[1])
 print(get_rss(make_channel_list('channels.xml')[3]))
 print(make_cities_counter_list(5))
-print(rss_watch(get_rss(make_channel_list('channels.xml'))))
+print(rss_watch(get_rss(make_channel_list('channels.xml')[3])))
