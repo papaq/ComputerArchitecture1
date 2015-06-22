@@ -57,11 +57,26 @@ def run_all_rss(all_rss, vocabulary_set):
     return counter_line
 
 
+def sort_list(mention_list, vocabulary):
+    statistics = []
+    for city in xrange(len(vocabulary)):
+        statistics.append((mention_list[city], vocabulary[city]))
+    return sorted(statistics, key=lambda city_mentioned: city_mentioned[0], )
+
+
+def print_top_5(sorted_list):
+    for city in xrange(len(sorted_list)-1, len(sorted_mention_list)-6, -1):
+        print("\n".join(["%s : %d" % (sorted_list[city][1].translate(None, '\n'), sorted_list[city][0])]))
+
+
+vocabularies = make_cities_vocabulary()
+
+
 # print(make_channel_list('channels.xml'))
 # print(list_all_lines('cities.txt')[1])
 
-channels = get_rss(make_channel_list('channels.xml')[3])
-print(channels.entries[9].title)
+# channels = get_rss(make_channel_list('channels.xml')[3])
+# print(channels.entries[9].title)
 # print(channels)
 # print()
 
@@ -71,10 +86,18 @@ print(channels.entries[9].title)
 # print(find_all_mentions("abca b cabc a", "ca"))
 # print(count_all_cities("lviv Lvova lvovu", [['lviv'], ['lvova'], ['lvovu']], [1]))
 
-# print(count_all_cities(channels.entries[9].title.encode("utf-8"), make_cities_vocabulary(), make_cities_counter_list(101)))
+# print(count_all_cities(channels.entries[9].title.encode("utf-8"),
+#       make_cities_vocabulary(),
+#       make_cities_counter_list(101)))
 
-print(run_all_rss(make_channel_list('channels.xml'), make_cities_vocabulary()))
+mentions = run_all_rss(make_channel_list('channels.xml'), vocabularies)
+
+# print(mentions)
 
 # print(get_fulltext(get_rss(make_channel_list('channels.xml')[4]))[0])
 # print(get_title(get_rss(make_channel_list('channels.xml')[4]))[0])
 # print(get_rss(make_channel_list('channels.xml')[0]))
+
+sorted_mention_list = sort_list(mentions, vocabularies[0])
+
+print_top_5(sorted_mention_list)
