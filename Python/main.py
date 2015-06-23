@@ -3,6 +3,8 @@ __author__ = 'solomon'
 import feedparser
 import xml.etree.cElementTree as eT
 import time
+import ConfigParser
+from main_gevent import *
 
 
 def list_all_lines(file_name):
@@ -89,6 +91,11 @@ def print_top_10(sorted_list):
             sorted_list[city][0])]))
 
 if __name__ == '__main__':
+
+    config = ConfigParser.RawConfigParser()
+    config.read('../h.config')
+    mode = config.get('way', 'mode')
+
     start_time = time.time()
 
     vocabularies = make_cities_vocabulary([
@@ -102,12 +109,20 @@ if __name__ == '__main__':
         time.strftime("%m")) * 30.5 + float(
         time.strftime("%d")) + float(time.strftime("%H")) / 24
 
-    mentions = run_all_rss(make_channel_list('channels.xml'), vocabularies)
+    if mode == "gevent":
+        print ('Searching started in %s mode' % mode)
+        mentions = run_all_rss_gevent(make_channel_list('channels.xml'), vocabularies, days_gone)
+    elif mode == "simple":
+        print ('Searching started in %s mode' % mode)
+        mentions = run_all_rss(make_channel_list('channels.xml'), vocabularies)
+    else:
+        print('Mode is inappropriate!')
+        exit()
+
+    print('\nSearching lasted %s seconds' % (time.time() - start_time))
 
     sorted_mention_list = sort_list(mentions, vocabularies[0])
 
     print_top_10(sorted_mention_list)
 
     make_result_xml(sorted_mention_list, "rusalochka.xml")
-
-    print('\nProgram worked during %s seconds' % (time.time() - start_time))
