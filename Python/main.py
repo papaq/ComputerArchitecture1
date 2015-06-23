@@ -67,6 +67,19 @@ def sort_list(mention_list, vocabulary):
     return sorted(statistics, key=lambda city_mentioned: city_mentioned[0], )
 
 
+def make_result_xml(result, file_name):
+    root = eT.Element('data')
+    cities_branch = eT.SubElement(root, 'items')
+
+    for cities in result:
+        city = eT.SubElement(cities_branch, 'city')
+        eT.SubElement(city, 'name').text = cities[1].translate(None, '\n ').decode('utf-8')
+        eT.SubElement(city, 'mentions').text = str(cities[0])
+
+    tree = eT.ElementTree(root)
+    tree.write(file_name, 'utf-8')
+
+
 def print_top_10(sorted_list):
     for city in xrange(len(sorted_list) - 1,
                        len(sorted_mention_list) - 11, -1):
@@ -93,5 +106,7 @@ if __name__ == '__main__':
     sorted_mention_list = sort_list(mentions, vocabularies[0])
 
     print_top_10(sorted_mention_list)
+
+    make_result_xml(sorted_mention_list, "rusalochka.xml")
 
     print('\nProgram worked during %s seconds' % (time.time() - start_time))
