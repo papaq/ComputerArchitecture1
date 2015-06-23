@@ -73,7 +73,8 @@ def make_result_xml(result, file_name):
 
     for cities in result:
         city = eT.SubElement(cities_branch, 'city')
-        eT.SubElement(city, 'name').text = cities[1].translate(None, '\n ').decode('utf-8')
+        eT.SubElement(city, 'name').text = cities[1].translate(
+            None, '\n ').decode('utf-8')
         eT.SubElement(city, 'mentions').text = str(cities[0])
 
     tree = eT.ElementTree(root)
